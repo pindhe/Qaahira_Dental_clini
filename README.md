@@ -49,7 +49,6 @@ Website-kan waxa uu leeyahay:
 | Technology | Version | Purpose |
 |---|---|---|
 | TypeScript | ^5.0 | Type-safe development |
-| React / Next.js | ^14.0 | UI framework & SSR |
 | Tailwind CSS | ^3.0 | Utility-first styling |
 | Framer Motion | ^11.0 | Animations & transitions |
 | ShadCN UI | Latest | Component library |
@@ -60,8 +59,6 @@ Website-kan waxa uu leeyahay:
 |---|---|---|
 | Python | ^3.11 | Backend language |
 | FastAPI | ^0.111 | REST API framework |
-| PostgreSQL | ^16.0 | Relational database |
-| SQLAlchemy | ^2.0 | ORM |
 | JWT | — | Authentication |
 
 ---
@@ -96,38 +93,6 @@ Website-kan waxa uu leeyahay:
 | 🦾 Orthodontics | Braces & alignment solutions |
 | 🏥 Root Canal | Pain-free root canal therapy |
 | 💎 Cosmetic Dentistry | Smile makeover treatments |
-
----
-
-## 📁 Project Structure
-
-```
-qaahira-dental/
-├── frontend/
-│   ├── app/
-│   │   ├── (auth)/
-│   │   ├── dashboard/
-│   │   ├── appointments/
-│   │   └── services/
-│   ├── components/
-│   │   ├── ui/
-│   │   ├── forms/
-│   │   └── layout/
-│   └── lib/
-│       ├── api/
-│       └── utils/
-├── backend/
-│   ├── app/
-│   │   ├── api/
-│   │   │   └── routes/
-│   │   ├── models/
-│   │   ├── schemas/
-│   │   └── core/
-│   │       ├── config.py
-│   │       └── security.py
-│   └── alembic/
-└── docker-compose.yml
-```
 
 ---
 
