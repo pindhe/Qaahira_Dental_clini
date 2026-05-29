@@ -63,23 +63,6 @@ Website-kan waxa uu leeyahay:
 
 ---
 
-## ✨ Main Features
-
-### 👨‍⚕️ Patient Features
-
-- 📅 **Book Appointment** — Easy online booking system
-- 🔍 **View Services** — Browse all dental services
-- 👤 **Meet Dentists** — View dentist profiles
-- 📞 **Contact Clinic** — Get in touch easily
-- 📱 **Responsive Mobile UI** — Works on all devices
-
-### 🏥 Admin Features
-
-- 🗂️ **Manage Patients** — Full patient records management
-- 📆 **Manage Appointments** — Schedule & track appointments
-- 🕐 **Dentist Scheduling** — Manage dentist availability
-- 📊 **Dashboard Analytics** — Real-time statistics
-- 🔐 **Secure Authentication** — JWT-based auth system
 
 ---
 
@@ -95,63 +78,6 @@ Website-kan waxa uu leeyahay:
 | 💎 Cosmetic Dentistry | Smile makeover treatments |
 
 ---
-
-## 🛠️ Getting Started
-
-### Prerequisites
-
-```bash
-node >= 18.0.0
-python >= 3.11
-postgresql >= 16
-```
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/your-username/qaahira-dental.git
-cd qaahira-dental
-```
-
-### 2. Setup Backend
-
-```bash
-cd backend
-python -m venv venv
-source venv/bin/activate      # Windows: venv\Scripts\activate
-pip install -r requirements.txt
-
-# Configure environment variables
-cp .env.example .env
-# Edit .env with your database credentials
-
-# Run database migrations
-alembic upgrade head
-
-# Start server
-uvicorn app.main:app --reload
-```
-
-### 3. Setup Frontend
-
-```bash
-cd frontend
-npm install
-
-# Configure environment variables
-cp .env.example .env.local
-# Edit .env.local with your API URL
-
-# Start development server
-npm run dev
-```
-
-### 4. Open in browser
-
-```
-Frontend:  http://localhost:3000
-API Docs:  http://localhost:8000/docs
-```
 
 
 ## 📬 Contact
