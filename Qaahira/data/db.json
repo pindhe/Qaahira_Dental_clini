@@ -1,0 +1,104 @@
+{
+  "services": [],
+  "doctors": [],
+  "testimonials": [
+    {
+      "testimonial_id": "t1",
+      "patient_name": "Sherif Kamel",
+      "content": "I was extremely anxious about getting a dental implant. Dr. Youssef took time to explain the procedure using their 3D visualization. The actual implants felt painless, and the outcome changed my chewing comfort entirely! Unparalleled service at Qahira Clinic.",
+      "rating": 5,
+      "approved": true,
+      "created_at": "2026-05-18T08:45:27.971Z"
+    },
+    {
+      "testimonial_id": "t2",
+      "patient_name": "Mariam Salem",
+      "content": "Excellent experience with Dr. Amina for clear aligners! The 3D tour allowed me to see the clinic layout and surgical equipment standard beforehand, which was so reassuring. The aligners are completely clear, and my teeth are shifting perfectly.",
+      "rating": 5,
+      "approved": true,
+      "created_at": "2026-05-23T08:45:27.973Z"
+    },
+    {
+      "testimonial_id": "t3",
+      "patient_name": "Layla Farid",
+      "content": "Dr. Tarek is a child-whisperer! My 6-year-old son actually looks forward to visiting the dentist now. The waiting area is beautifully decorated, and everyone is incredibly warm and encouraging.",
+      "rating": 5,
+      "approved": true,
+      "created_at": "2026-05-26T08:45:27.973Z"
+    },
+    {
+      "testimonial_id": "testimonial-qczfc5i4y",
+      "patient_name": "haji pindhe",
+      "content": "thank you",
+      "rating": 4,
+      "approved": false,
+      "created_at": "2026-05-28T12:45:10.316Z"
+    }
+  ],
+  "blog_posts": [
+    {
+      "post_id": "post-1",
+      "title": "Understanding Dental Implants: From Surgical Post to Symmetrical Smile",
+      "slug": "understanding-dental-implants",
+      "content": "### Introduction to Dental Restoration\n\nWhen you lose a dental structure, it can heavily affect dietary comfort, pronunciation, and aesthetic confidence. Today, titanium dental implants stand as the absolute gold standard in tooth replacement, boasting a 98% clinical success rate.\n\n### The Science of Osseointegration\n\nWhat makes dental implants unique is a biological phenomenon called **osseointegration**. Discovered by Swedish researcher Per-Ingvar Brånemark, titanium possesses an exceptional biocompatibility that permits bone tissue to bond directly to its microscopic helical structure. This bone-titanium weld replaces the natural root system.\n\n### Step-by-Step Restoration Journey\n\n1. **Diagnostic Planning**: High-resolution 3D CBCT scans are taken to map bone density and locate vital nerves.\n2. **Post Placement**: Under localized anesthesia, the surgical dentist creates a small site and inserts the tiny titanium post.\n3. **Fusing Phase**: Over a period of 3-4 months, the surrounding jawbone grows directly around the post, creating a heavy-duty anchor.\n4. **Abutment & Restoration**: Once stabilized, a connector (abutment) is attached, and a custom crown is secured.",
+      "thumbnail_url": "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=600&h=400&fit=crop",
+      "published_at": "2026-05-13T08:45:27.973Z"
+    },
+    {
+      "post_id": "post-2",
+      "title": "Clear Aligners vs. Metal Braces: Honest Pediatric & Adult Orthodontics Guide",
+      "slug": "clear-aligners-vs-braces",
+      "content": "### Modern Smile Alignment\n\nFor decades, metal braces with brackets, wires, and rubber bands were the sole treatment option for crowding, gaps, and overbites. However, custom clear aligners have completely redefined the orthodontic landscape.\n\n### Key Differences at a Glance\n\n- **Aesthetic Profile**: Aligners are virtually invisible, made of transparent medical polyurethane. Braces are highly visible metal or ceramic brackets.\n- **Hygiene & Dietary Liberty**: Since aligners are removable, you can enjoy crisp apples or sticky caramels without worry, and brushing remains straightforward without specialized floss-threaders.\n- **Comfort Patterns**: Aligners apply a mild, continuous orthodontic force, resulting in fewer painful abrasions inside the lips compared to metal brackets.\n\n### Who is Eligible?\n\nWhile aligners manage the vast majority of mild-to-moderate orthodontic crowding, rotations, and vertical gaps, extremely severe skeletal jaw misalignments may still benefit from traditional wire frameworks or surgical intervention.",
+      "thumbnail_url": "https://images.unsplash.com/photo-1513429813219-c59e72d2787e?q=80&w=600&h=400&fit=crop",
+      "published_at": "2026-05-20T08:45:27.973Z"
+    }
+  ],
+  "appointments": [
+    {
+      "appointment_id": "app-1",
+      "patient_name": "Yassine Mansoor",
+      "patient_email": "yassine@example.com",
+      "patient_phone": "+201011112222",
+      "doctor_id": "dr-youssef",
+      "service_id": "root-canal",
+      "start_time": "2026-05-29T08:45:27.973Z",
+      "notes": "First time consultation regarding root canal treatment.",
+      "status": "confirmed",
+      "created_at": "2026-05-27T08:45:27.973Z"
+    },
+    {
+      "appointment_id": "app-2",
+      "patient_name": "Nouran Selim",
+      "patient_email": "nouran@example.com",
+      "patient_phone": "+201022223333",
+      "doctor_id": "dr-amina",
+      "service_id": "aligners",
+      "start_time": "2026-05-30T08:45:27.973Z",
+      "notes": "Routine Invisalign scan and replacement tray checkup.",
+      "status": "cancelled",
+      "created_at": "2026-05-28T08:45:27.973Z",
+      "admin_notes": ""
+    }
+  ],
+  "contact_submissions": [],
+  "gallery": [],
+  "settings": {
+    "clinic_name": "Qaahira Denta Care",
+    "tagline": "Clinical 3D Suite",
+    "address": "Hargeisa, near Dawlada Hoose ee Hargaysa",
+    "city": "Hargeisa",
+    "phone_primary": "+252 63 6249555",
+    "phone_secondary": "+252 63 4953675",
+    "email": "kharash420@gmail.com",
+    "hours_days": "Sat – Thu",
+    "hours_morning": "07:00 – 12:00",
+    "hours_afternoon": "16:00 – 20:00",
+    "map_lat": 9.5616,
+    "map_lng": 44.0718,
+    "about_summary": "Modern dental care with digital treatment planning, strict sterilization, and patient-centred service — right here in Hargeisa.",
+    "footer_tagline": "Modern dental care with digital treatment planning, strict sterilization, and patient-centred service — right here in Hargeisa.",
+    "admin_pin": "@123@",
+    "whatsapp_url": "https://wa.me/252634953675",
+    "facebook_url": "https://www.facebook.com/qaahiradentalcare/"
+  }
+}

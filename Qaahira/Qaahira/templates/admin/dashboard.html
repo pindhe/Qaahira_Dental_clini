@@ -1,0 +1,189 @@
+{% extends 'admin/base.html' %}
+{% load translate_tags %}
+
+{% block page_title %}<span data-i18n="Dashboard Overview">{% t "Dashboard Overview" %}</span>{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <!-- Statistics Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-white rounded-lg shadow p-6 border-l-4 border-blue-500">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-gray-600 text-sm font-medium" data-i18n="Total Patients">{% t "Total Patients" %}</p>
+                    <p class="text-3xl font-bold text-gray-900 mt-2">{{ total_patients }}</p>
+                </div>
+                <div class="bg-blue-100 p-3 rounded-full">
+                    <i class="fas fa-users text-blue-600 text-2xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow p-6 border-l-4 border-purple-500">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-gray-600 text-sm font-medium" data-i18n="Total Services">{% t "Total Services" %}</p>
+                    <p class="text-3xl font-bold text-gray-900 mt-2">{{ total_services }}</p>
+                </div>
+                <div class="bg-purple-100 p-3 rounded-full">
+                    <i class="fas fa-concierge-bell text-purple-600 text-2xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow p-6 border-l-4 border-gold-600">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-gray-600 text-sm font-medium" data-i18n="Total Appointments">{% t "Total Appointments" %}</p>
+                    <p class="text-3xl font-bold text-gray-900 mt-2">{{ total_appointments }}</p>
+                </div>
+                <div class="bg-gold-100 p-3 rounded-full">
+                    <i class="fas fa-calendar-alt text-gold-600 text-2xl"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Appointment Status Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div class="bg-white rounded-lg shadow p-6">
+            <div class="text-center">
+                <p class="text-gray-600 text-sm font-medium" data-i18n="Today's Appointments">{% t "Today's Appointments" %}</p>
+                <p class="text-2xl font-bold text-gray-900 mt-2">{{ today_appointments }}</p>
+            </div>
+        </div>
+        <div class="bg-white rounded-lg shadow p-6">
+            <div class="text-center">
+                <p class="text-gray-600 text-sm font-medium" data-i18n="Pending">{% t "Pending" %}</p>
+                <p class="text-2xl font-bold text-yellow-600 mt-2">{{ pending_appointments }}</p>
+            </div>
+        </div>
+        <div class="bg-white rounded-lg shadow p-6">
+            <div class="text-center">
+                <p class="text-gray-600 text-sm font-medium" data-i18n="Confirmed">{% t "Confirmed" %}</p>
+                <p class="text-2xl font-bold text-green-600 mt-2">{{ confirmed_appointments }}</p>
+            </div>
+        </div>
+        <div class="bg-white rounded-lg shadow p-6">
+            <div class="text-center">
+                <p class="text-gray-600 text-sm font-medium" data-i18n="Completed">{% t "Completed" %}</p>
+                <p class="text-2xl font-bold text-blue-600 mt-2">{{ completed_appointments }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="bg-white rounded-lg shadow p-6">
+        <h3 class="text-lg font-bold text-gray-900 mb-4" data-i18n="Quick Actions">{% t "Quick Actions" %}</h3>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <a href="{% url 'admin_appointments' %}" class="bg-blue-50 hover:bg-blue-100 p-4 rounded-lg text-center transition">
+                <i class="fas fa-calendar-plus text-blue-600 text-2xl mb-2"></i>
+                <p class="text-blue-900 font-semibold" data-i18n="View Appointments">{% t "View Appointments" %}</p>
+            </a>
+            <a href="{% url 'admin_customers' %}" class="bg-green-50 hover:bg-green-100 p-4 rounded-lg text-center transition">
+                <i class="fas fa-users text-green-600 text-2xl mb-2"></i>
+                <p class="text-green-900 font-semibold" data-i18n="View Customers">{% t "View Customers" %}</p>
+            </a>
+            <a href="{% url 'admin_service_create' %}" class="bg-gold-50 hover:bg-gold-100 p-4 rounded-lg text-center transition">
+                <i class="fas fa-plus-circle text-gold-600 text-2xl mb-2"></i>
+                <p class="text-gold-900 font-semibold" data-i18n="Add Service">{% t "Add Service" %}</p>
+            </a>
+        </div>
+    </div>
+
+    <!-- Recent and Upcoming Appointments -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Recent Appointments -->
+        <div class="bg-white rounded-lg shadow">
+            <div class="p-6 border-b border-gray-200">
+                <h3 class="text-lg font-bold text-gray-900" data-i18n="Recent Appointments">{% t "Recent Appointments" %}</h3>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase" data-i18n="Patient">{% t "Patient" %}</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase" data-i18n="Date">{% t "Date" %}</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase" data-i18n="Status">{% t "Status" %}</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        {% for appointment in recent_appointments %}
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                <a href="{% url 'admin_appointment_detail' appointment.id %}" class="text-blue-600 hover:text-blue-800">
+                                    {{ appointment.patient.first_name }} {{ appointment.patient.last_name }}
+                                </a>
+                            </td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">
+                                {{ appointment.appointment_date|date:"M d, Y" }} {{ appointment.appointment_time|time:"g:i A" }}
+                            </td>
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                {% if appointment.status == 'pending' %}
+                                    <span class="px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800" data-i18n="Pending">{% t "Pending" %}</span>
+                                {% elif appointment.status == 'confirmed' %}
+                                    <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800" data-i18n="Confirmed">{% t "Confirmed" %}</span>
+                                {% elif appointment.status == 'completed' %}
+                                    <span class="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800" data-i18n="Completed">{% t "Completed" %}</span>
+                                {% else %}
+                                    <span class="px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800" data-i18n="Cancelled">{% t "Cancelled" %}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3" class="px-4 py-8 text-center text-gray-500" data-i18n="No recent appointments">{% t "No recent appointments" %}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Upcoming Appointments -->
+        <div class="bg-white rounded-lg shadow">
+            <div class="p-6 border-b border-gray-200">
+                <h3 class="text-lg font-bold text-gray-900" data-i18n="Upcoming Appointments (Next 7 Days)">{% t "Upcoming Appointments (Next 7 Days)" %}</h3>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase" data-i18n="Patient">{% t "Patient" %}</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase" data-i18n="Date">{% t "Date" %}</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase" data-i18n="Status">{% t "Status" %}</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        {% for appointment in upcoming_appointments %}
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                <a href="{% url 'admin_appointment_detail' appointment.id %}" class="text-blue-600 hover:text-blue-800">
+                                    {{ appointment.patient.first_name }} {{ appointment.patient.last_name }}
+                                </a>
+                            </td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">
+                                {{ appointment.appointment_date|date:"M d, Y" }} {{ appointment.appointment_time|time:"g:i A" }}
+                            </td>
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                {% if appointment.status == 'pending' %}
+                                    <span class="px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800" data-i18n="Pending">{% t "Pending" %}</span>
+                                {% elif appointment.status == 'confirmed' %}
+                                    <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800" data-i18n="Confirmed">{% t "Confirmed" %}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3" class="px-4 py-8 text-center text-gray-500" data-i18n="No upcoming appointments">{% t "No upcoming appointments" %}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+

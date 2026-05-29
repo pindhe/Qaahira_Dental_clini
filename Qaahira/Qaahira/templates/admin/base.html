@@ -1,0 +1,189 @@
+{% load i18n translate_tags static %}
+{% get_current_language as LANGUAGE_CODE %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" dir="{% if LANGUAGE_CODE == 'ar' %}rtl{% else %}ltr{% endif %}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% t "Admin Dashboard" %} - {% t "Dental Clinic" %}{% endblock %}</title>
+    <link rel="icon" type="image/png" href="{% static 'images/icons/favicon.png' %}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'gold': {
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            200: '#fed7aa',
+                            300: '#fdba74',
+                            400: '#fb923c',
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c',
+                            800: '#9a3412',
+                            900: '#7c2d12',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    {% load i18n %}
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="bg-gray-100">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="bg-gray-900 text-white shadow-lg flex flex-col h-screen transition-all duration-300 overflow-hidden" style="width: 4rem;">
+            <div class="p-4 border-b border-gray-800">
+                <div class="flex items-center space-x-3">
+                    <img src="{% static 'images/icons/favicon.png' %}" alt="Logo" class="w-8 h-8 flex-shrink-0">
+                    <h1 id="sidebar-logo" class="hidden text-xl font-bold text-gold-500 whitespace-nowrap overflow-hidden" data-i18n="DentalCare">Qaahira</h1>
+                </div>
+            </div>
+            
+            <nav class="flex-1 overflow-y-auto py-4">
+                <a href="{% url 'admin_dashboard' %}" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-800 hover:text-gold-500 transition-all duration-200 group relative {% if request.resolver_match.url_name == 'admin_dashboard' %}bg-gray-800 text-gold-500 border-r-4 border-gold-500{% endif %}" title="{% t 'Dashboard' %}" data-i18n-title="Dashboard">
+                    <i class="fas fa-home w-8 text-center text-lg group-hover:scale-110 transition-transform"></i>
+                    <span class="sidebar-text hidden ml-3 whitespace-nowrap overflow-hidden transition-all duration-300" data-i18n="Dashboard">{% t "Dashboard" %}</span>
+                </a>
+                <a href="{% url 'admin_appointments' %}" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-800 hover:text-gold-500 transition-all duration-200 group relative {% if 'appointment' in request.resolver_match.url_name %}bg-gray-800 text-gold-500 border-r-4 border-gold-500{% endif %}" title="{% t 'Appointments' %}" data-i18n-title="Appointments">
+                    <i class="fas fa-calendar-alt w-8 text-center text-lg group-hover:scale-110 transition-transform"></i>
+                    <span class="sidebar-text hidden ml-3 whitespace-nowrap overflow-hidden transition-all duration-300" data-i18n="Appointments">{% t "Appointments" %}</span>
+                </a>
+                <a href="{% url 'admin_customers' %}" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-800 hover:text-gold-500 transition-all duration-200 group relative {% if 'customer' in request.resolver_match.url_name %}bg-gray-800 text-gold-500 border-r-4 border-gold-500{% endif %}" title="{% t 'Customers' %}" data-i18n-title="Customers">
+                    <i class="fas fa-users w-8 text-center text-lg group-hover:scale-110 transition-transform"></i>
+                    <span class="sidebar-text hidden ml-3 whitespace-nowrap overflow-hidden transition-all duration-300" data-i18n="Customers">{% t "Customers" %}</span>
+                </a>
+                <a href="{% url 'admin_services' %}" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-800 hover:text-gold-500 transition-all duration-200 group relative {% if 'service' in request.resolver_match.url_name %}bg-gray-800 text-gold-500 border-r-4 border-gold-500{% endif %}" title="{% t 'Services' %}" data-i18n-title="Services">
+                    <i class="fas fa-concierge-bell w-8 text-center text-lg group-hover:scale-110 transition-transform"></i>
+                    <span class="sidebar-text hidden ml-3 whitespace-nowrap overflow-hidden transition-all duration-300" data-i18n="Services">{% t "Services" %}</span>
+                </a>
+                <a href="{% url 'admin_gallery' %}" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-800 hover:text-gold-500 transition-all duration-200 group relative {% if 'gallery' in request.resolver_match.url_name %}bg-gray-800 text-gold-500 border-r-4 border-gold-500{% endif %}" title="{% t 'Gallery' %}" data-i18n-title="Gallery">
+                    <i class="fas fa-images w-8 text-center text-lg group-hover:scale-110 transition-transform"></i>
+                    <span class="sidebar-text hidden ml-3 whitespace-nowrap overflow-hidden transition-all duration-300" data-i18n="Gallery">{% t "Gallery" %}</span>
+                </a>
+            </nav>
+
+            <!-- Sidebar Footer: Profile and Logout -->
+            <div class="p-2 border-t border-gray-800 space-y-1">
+                <a href="{% url 'admin_profile' %}" class="flex items-center px-2 py-3 text-gray-300 hover:bg-gray-800 hover:text-gold-500 transition group relative {% if request.resolver_match.url_name == 'admin_profile' %}bg-gray-800 text-gold-500{% endif %}" title="{% t 'Profile' %}" data-i18n-title="Profile">
+                    <i class="fas fa-user-circle w-8 text-center text-lg group-hover:scale-110 transition-transform"></i>
+                    <span class="sidebar-text hidden ml-3 whitespace-nowrap overflow-hidden transition-all duration-300" data-i18n="Profile">{% t "Profile" %}</span>
+                </a>
+                <form method="post" action="{% url 'logout' %}" class="block">
+                    {% csrf_token %}
+                    <button type="submit" class="w-full flex items-center px-2 py-3 text-red-400 hover:bg-gray-800 hover:text-red-500 transition group relative" title="{% t 'Logout' %}" data-i18n-title="Logout">
+                        <i class="fas fa-sign-out-alt w-8 text-center text-lg group-hover:scale-110 transition-transform"></i>
+                        <span class="sidebar-text hidden ml-3 whitespace-nowrap overflow-hidden transition-all duration-300" data-i18n="Logout">{% t "Logout" %}</span>
+                    </button>
+                </form>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Bar -->
+            <header class="bg-white shadow-sm border-b border-gray-200">
+                <div class="flex items-center justify-between px-6 py-4">
+                    <div class="flex items-center space-x-4">
+                        <button id="sidebar-toggle" class="p-2 rounded-lg hover:bg-gray-100 transition text-gray-600">
+                            <i class="fas fa-bars text-xl"></i>
+                        </button>
+                        <h2 class="text-2xl font-bold text-gray-800">{% block page_title %}<span data-i18n="Dashboard">Dashboard</span>{% endblock %}</h2>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <a href="{% url 'home' %}" class="flex items-center space-x-2 px-3 py-1.5 rounded-lg hover:bg-gray-100 text-gray-700 transition" data-i18n="View Website">
+                            <i class="fas fa-globe text-gold-600"></i>
+                            <span class="text-sm font-medium">{% t "View Website" %}</span>
+                        </a>
+
+                        <!-- Language Switcher -->
+                        <div class="relative">
+                            <div class="flex items-center space-x-2">
+                                <button type="button" data-switch-lang="en" class="px-3 py-1.5 text-sm rounded-lg transition {% if LANGUAGE_CODE == 'en' %}bg-gold-600 text-white{% else %}bg-gray-200 text-gray-700 hover:bg-gray-300{% endif %}">
+                                    EN
+                                </button>
+                                <button type="button" data-switch-lang="ar" class="px-3 py-1.5 text-sm rounded-lg transition {% if LANGUAGE_CODE == 'ar' %}bg-gold-600 text-white{% else %}bg-gray-200 text-gray-700 hover:bg-gray-300{% endif %}">
+                                    AR
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Profile Info (Read-only since actions moved to sidebar) -->
+                        <div class="flex items-center space-x-3 px-3 py-2 rounded-lg bg-gray-50 border border-gray-100">
+                            <div class="w-8 h-8 bg-gold-600 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                                {{ user.username|first|upper }}
+                            </div>
+                            <div class="hidden md:block leading-tight">
+                                <p class="text-xs font-semibold text-gray-900">{{ user.get_full_name|default:user.username }}</p>
+                                <p class="text-[10px] text-gray-500 uppercase tracking-wider font-bold">Admin</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <main class="flex-1 overflow-y-auto p-6">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="mb-4 bg-gold-100 border-l-4 border-gold-600 text-gold-800 p-4 rounded" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                {% block content %}{% endblock %}
+            </main>
+        </div>
+    </div>
+
+    <script src="/static/js/i18n.js"></script>
+    <script>
+        // Sidebar Toggle Functionality
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const sidebarLogo = document.getElementById('sidebar-logo');
+        const sidebarTexts = document.querySelectorAll('.sidebar-text');
+        let sidebarExpanded = false;
+
+        // Check localStorage for sidebar state
+        if (localStorage.getItem('sidebarExpanded') === 'true') {
+            expandSidebar();
+        }
+
+        sidebarToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (sidebarExpanded) {
+                collapseSidebar();
+            } else {
+                expandSidebar();
+            }
+        });
+
+        function expandSidebar() {
+            sidebar.style.width = '16rem';
+            if (sidebarLogo) sidebarLogo.classList.remove('hidden');
+            sidebarTexts.forEach(text => text.classList.remove('hidden'));
+            sidebarExpanded = true;
+            localStorage.setItem('sidebarExpanded', 'true');
+        }
+
+        function collapseSidebar() {
+            sidebar.style.width = '4rem';
+            if (sidebarLogo) sidebarLogo.classList.add('hidden');
+            sidebarTexts.forEach(text => text.classList.add('hidden'));
+            sidebarExpanded = false;
+            localStorage.setItem('sidebarExpanded', 'false');
+        }
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
+

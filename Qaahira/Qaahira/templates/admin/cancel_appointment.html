@@ -1,0 +1,104 @@
+{% extends 'admin/base.html' %}
+{% load translate_tags %}
+
+{% block page_title %}<span data-i18n="Cancel Appointment">{% t "Cancel Appointment" %}</span>{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <div class="flex justify-between items-center">
+        <h1 class="text-2xl font-bold text-gray-900" data-i18n="Cancel Appointment">{% t "Cancel Appointment" %}</h1>
+        <div class="flex space-x-2">
+            {% if patient_id %}
+                <a href="{% url 'admin_customer_detail' patient_id %}" class="text-gold-600 hover:text-gold-700">
+                    <i class="fas fa-arrow-left mr-2"></i><span data-i18n="Back to Customer">{% t "Back to Customer" %}</span>
+                </a>
+            {% else %}
+                <a href="{% url 'admin_appointment_detail' appointment.id %}" class="text-gold-600 hover:text-gold-700">
+                    <i class="fas fa-arrow-left mr-2"></i><span data-i18n="Back to Appointment">{% t "Back to Appointment" %}</span>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-8">
+        <div class="text-center mb-8">
+            <div class="bg-red-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-times-circle text-red-600 text-3xl"></i>
+            </div>
+            <h2 class="text-3xl font-bold text-gray-900 mb-2" data-i18n="Are you sure you want to cancel this appointment?">{% t "Are you sure you want to cancel this appointment?" %}</h2>
+            <p class="text-gray-600" data-i18n="This action will mark the appointment as cancelled">{% t "This action will mark the appointment as cancelled" %}</p>
+        </div>
+
+        <div class="bg-gray-50 rounded-lg p-6 mb-8">
+            <h3 class="font-bold text-gray-900 mb-4" data-i18n="Appointment Details">{% t "Appointment Details" %}</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <p class="text-sm text-gray-600" data-i18n="Patient">{% t "Patient" %}</p>
+                    <p class="font-semibold text-gray-900">{{ appointment.patient.first_name }} {{ appointment.patient.last_name }}</p>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-600" data-i18n="Email">{% t "Email" %}</p>
+                    <p class="font-semibold text-gray-900">{{ appointment.patient.email }}</p>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-600" data-i18n="Date">{% t "Date" %}</p>
+                    <p class="font-semibold text-gray-900">{{ appointment.appointment_date|date:"M d, Y" }}</p>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-600" data-i18n="Time">{% t "Time" %}</p>
+                    <p class="font-semibold text-gray-900">{{ appointment.appointment_time|time:"g:i A" }}</p>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-600" data-i18n="Doctor">{% t "Doctor" %}</p>
+                    <p class="font-semibold text-gray-900">{{ appointment.doctor.name }}</p>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-600" data-i18n="Service">{% t "Service" %}</p>
+                    <p class="font-semibold text-gray-900">{{ appointment.service.name }}</p>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-600" data-i18n="Status">{% t "Status" %}</p>
+                    <span class="font-semibold">
+                        {% if appointment.status == 'pending' %}
+                            <span class="px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800" data-i18n="Pending">{% t "Pending" %}</span>
+                        {% elif appointment.status == 'confirmed' %}
+                            <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800" data-i18n="Confirmed">{% t "Confirmed" %}</span>
+                        {% elif appointment.status == 'completed' %}
+                            <span class="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800" data-i18n="Completed">{% t "Completed" %}</span>
+                        {% else %}
+                            <span class="px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800" data-i18n="Cancelled">{% t "Cancelled" %}</span>
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <form method="post" class="space-y-6">
+            {% csrf_token %}
+            <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded mb-6">
+                <p class="text-yellow-800 text-sm">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                    <strong data-i18n="Warning">{% t "Warning" %}:</strong> <span data-i18n="This action will mark the appointment as cancelled. The patient will need to book a new appointment if needed.">{% t "This action will mark the appointment as cancelled. The patient will need to book a new appointment if needed." %}</span>
+                </p>
+            </div>
+
+            <div class="flex gap-4">
+                <button type="submit" class="flex-1 bg-red-600 text-white py-3 rounded-lg hover:bg-red-700 transition duration-300 font-semibold text-lg" data-i18n="Yes, Cancel Appointment">
+                    <i class="fas fa-times mr-2"></i>{% t "Yes, Cancel Appointment" %}
+                </button>
+                {% if patient_id %}
+                    <a href="{% url 'admin_customer_detail' patient_id %}" class="flex-1 bg-gray-200 text-gray-800 py-3 rounded-lg hover:bg-gray-300 transition duration-300 font-semibold text-lg text-center" data-i18n="No, Keep Appointment">
+                        {% t "No, Keep Appointment" %}
+                    </a>
+                {% else %}
+                    <a href="{% url 'admin_appointment_detail' appointment.id %}" class="flex-1 bg-gray-200 text-gray-800 py-3 rounded-lg hover:bg-gray-300 transition duration-300 font-semibold text-lg text-center" data-i18n="No, Keep Appointment">
+                        {% t "No, Keep Appointment" %}
+                    </a>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+

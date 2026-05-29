@@ -1,0 +1,94 @@
+{% extends 'admin/base.html' %}
+{% load translate_tags %}
+
+{% block page_title %}<span data-i18n="Gallery Management">{% t "Gallery Management" %}</span>{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <!-- Header -->
+    <div class="flex justify-between items-center">
+        <h1 class="text-2xl font-bold text-gray-900" data-i18n="Gallery Items">{% t "Gallery Items" %}</h1>
+        <a href="{% url 'admin_gallery_create' %}" class="bg-gold-600 text-white px-6 py-2 rounded-lg hover:bg-gold-700 transition">
+            <i class="fas fa-plus mr-2"></i><span data-i18n="Add Gallery Item">{% t "Add Gallery Item" %}</span>
+        </a>
+    </div>
+
+    <!-- Search -->
+    <div class="bg-white rounded-lg shadow p-6">
+        <form method="get" class="flex gap-4">
+            <input type="text" name="search" value="{{ search_query }}" placeholder="{% t 'Search by title or description...' %}" data-i18n="Search by title or description..." class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent">
+            <button type="submit" class="bg-gold-600 text-white px-6 py-2 rounded-lg hover:bg-gold-700 transition">
+                <i class="fas fa-search mr-2"></i><span data-i18n="Search">{% t "Search" %}</span>
+            </button>
+        </form>
+    </div>
+
+    <!-- Gallery Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for item in gallery_items %}
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col hover:shadow-2xl transition duration-300">
+            <!-- Images Preview -->
+            <div class="relative h-48 flex">
+                <div class="w-1/2 relative group">
+                    <img src="{{ item.before_image.url }}" alt="Before" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                        <span class="text-white text-xs font-bold uppercase tracking-wider" data-i18n="Before">{% t "Before" %}</span>
+                    </div>
+                </div>
+                <div class="w-1/2 relative group border-l-2 border-white">
+                    <img src="{{ item.after_image.url }}" alt="After" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                        <span class="text-white text-xs font-bold uppercase tracking-wider" data-i18n="After">{% t "After" %}</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Content -->
+            <div class="p-4 flex-grow">
+                <h3 class="text-lg font-bold text-gray-900 mb-1">{{ item.title }}</h3>
+                <p class="text-sm text-gray-600 line-clamp-2">{{ item.description }}</p>
+                <div class="mt-2 text-xs text-gray-400">
+                    <i class="far fa-calendar-alt mr-1"></i>{{ item.created_at|date:"F d, Y" }}
+                </div>
+            </div>
+            
+            <!-- Actions -->
+            <div class="p-4 border-t border-gray-100 bg-gray-50 flex justify-end space-x-3">
+                <a href="{% url 'admin_gallery_edit' item.id %}" class="text-gold-600 hover:text-gold-800 font-medium text-sm flex items-center">
+                    <i class="fas fa-edit mr-1"></i><span data-i18n="Edit">{% t "Edit" %}</span>
+                </a>
+                <a href="{% url 'admin_gallery_delete' item.id %}" class="text-red-600 hover:text-red-800 font-medium text-sm flex items-center">
+                    <i class="fas fa-trash mr-1"></i><span data-i18n="Delete">{% t "Delete" %}</span>
+                </a>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-span-full py-12 bg-white rounded-lg shadow text-center">
+            <i class="fas fa-images text-5xl text-gray-300 mb-4 block"></i>
+            <p class="text-gray-500" data-i18n="No gallery items found">{% t "No gallery items found" %}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if gallery_items.has_other_pages %}
+    <div class="bg-white px-6 py-4 rounded-lg shadow">
+        <div class="flex items-center justify-between">
+            <div class="text-sm text-gray-700">
+                <span data-i18n="Showing page">{% t "Showing page" %}</span> {{ gallery_items.number }} <span data-i18n="of">{% t "of" %}</span> {{ gallery_items.paginator.num_pages }}
+            </div>
+            <div class="flex space-x-2">
+                {% if gallery_items.has_previous %}
+                    <a href="?page=1{% if search_query %}&search={{ search_query }}{% endif %}" class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-100" data-i18n="First">{% t "First" %}</a>
+                    <a href="?page={{ gallery_items.previous_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}" class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-100" data-i18n="Previous">{% t "Previous" %}</a>
+                {% endif %}
+                {% if gallery_items.has_next %}
+                    <a href="?page={{ gallery_items.next_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}" class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-100" data-i18n="Next">{% t "Next" %}</a>
+                    <a href="?page={{ gallery_items.paginator.num_pages }}{% if search_query %}&search={{ search_query }}{% endif %}" class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-100" data-i18n="Last">{% t "Last" %}</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

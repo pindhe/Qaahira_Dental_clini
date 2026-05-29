@@ -1,0 +1,44 @@
+{% extends 'admin/base.html' %}
+{% load translate_tags %}
+
+{% block page_title %}<span data-i18n="Delete Gallery Item">{% t "Delete Gallery Item" %}</span>{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-red-100">
+        <div class="bg-red-600 px-6 py-4">
+            <h1 class="text-xl font-bold text-white flex items-center">
+                <i class="fas fa-exclamation-triangle mr-2"></i>
+                <span data-i18n="Confirm Deletion">{% t "Confirm Deletion" %}</span>
+            </h1>
+        </div>
+        
+        <div class="p-6">
+            <p class="text-gray-700 mb-6">
+                <span data-i18n="Are you sure you want to delete the gallery item">{% t "Are you sure you want to delete the gallery item" %}</span> 
+                <strong class="text-gray-900">"{{ item.title }}"</strong>? 
+                <span data-i18n="This action cannot be undone.">{% t "This action cannot be undone." %}</span>
+            </p>
+            
+            <div class="grid grid-cols-2 gap-4 mb-6">
+                <div class="space-y-2">
+                    <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider" data-i18n="Before">{% t "Before" %}</p>
+                    <img src="{{ item.before_image.url }}" alt="Before" class="rounded-lg h-32 w-full object-cover">
+                </div>
+                <div class="space-y-2">
+                    <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider" data-i18n="After">{% t "After" %}</p>
+                    <img src="{{ item.after_image.url }}" alt="After" class="rounded-lg h-32 w-full object-cover">
+                </div>
+            </div>
+
+            <form method="post" class="flex justify-end space-x-3">
+                {% csrf_token %}
+                <a href="{% url 'admin_gallery' %}" class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition" data-i18n="No, Cancel">{% t "No, Cancel" %}</a>
+                <button type="submit" class="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-medium">
+                    <span data-i18n="Yes, Delete">{% t "Yes, Delete" %}</span>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

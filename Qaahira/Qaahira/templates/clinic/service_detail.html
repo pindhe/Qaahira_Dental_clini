@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load translate_tags %}
+{% load static %}
+
+{% block title %}{{ service.name }} - {% t "Dental Clinic" %}{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="relative py-24 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-gold-50 to-white -z-10"></div>
+    <div class="absolute top-0 right-0 w-1/2 h-full bg-gold-600/5 -skew-x-12 translate-x-1/2 -z-10"></div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="space-y-8">
+                <div class="inline-flex items-center space-x-2 bg-gold-100 px-4 py-2 rounded-full text-gold-700 font-bold text-xs uppercase tracking-widest animate-fade-in">
+                    <i class="fas fa-certificate"></i>
+                    <span data-i18n="Premium Service">{% t "Premium Service" %}</span>
+                </div>
+                
+                <h1 class="text-5xl lg:text-6xl font-black text-gray-900 leading-tight">
+                    <span class="block" data-i18n="{{ service.name }}">{{ service.name }}</span>
+                    <span class="text-gold-600" data-i18n="Expert Care">{% t "Expert Care" %}</span>
+                </h1>
+                
+                <p class="text-xl text-gray-600 leading-relaxed max-w-xl">
+                    {{ service.description }}
+                </p>
+                
+                <div class="flex flex-wrap gap-4">
+                    <div class="flex items-center space-x-4 px-6 py-4 bg-white rounded-2xl border border-gray-100 shadow-sm">
+                        <div class="text-center">
+                            <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest" data-i18n="Duration">{% t "Duration" %}</p>
+                            <p class="text-lg font-bold text-gray-900">{{ service.duration }} <span class="text-sm font-medium" data-i18n="min">{% t "min" %}</span></p>
+                        </div>
+                        <div class="w-px h-8 bg-gray-100"></div>
+                        <div class="text-center">
+                            <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest" data-i18n="Price">{% t "Price" %}</p>
+                            <p class="text-lg font-bold text-gray-900">${{ service.price }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="relative">
+                <div class="relative rounded-[40px] overflow-hidden shadow-2xl card-3d">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                    <div class="w-full h-[500px] bg-gold-100 flex items-center justify-center text-8xl text-gold-600">
+                        {% if service.icon %}
+                            {% if 'fa-' in service.icon %}
+                                <i class="fas {{ service.icon }}"></i>
+                            {% else %}
+                                {{ service.icon }}
+                            {% endif %}
+                        {% else %}
+                            <i class="fas fa-tooth"></i>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- Floating Stats -->
+                <div class="absolute -bottom-6 -left-6 bg-white p-6 rounded-3xl shadow-xl border border-gray-100 animate-float">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-green-100 rounded-2xl flex items-center justify-center text-green-600">
+                            <i class="fas fa-check-circle text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest" data-i18n="Safety">{% t "Safety" %}</p>
+                            <p class="font-bold text-gray-900" data-i18n="100% Certified">{% t "100% Certified" %}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-black text-gray-900 mb-4" data-i18n="Why this treatment?">{% t "Why this treatment?" %}</h2>
+            <div class="w-24 h-1.5 bg-gold-600 mx-auto rounded-full"></div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="p-8 rounded-3xl bg-gray-50 border border-gray-100 hover:shadow-xl transition-all duration-300 group">
+                <div class="w-14 h-14 bg-white rounded-2xl shadow-sm flex items-center justify-center text-gold-600 mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fas fa-microscope text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3" data-i18n="Advanced Tech">{% t "Advanced Tech" %}</h3>
+                <p class="text-gray-600 leading-relaxed" data-i18n="We use the latest diagnostic and treatment tools for precision.">{% t "We use the latest diagnostic and treatment tools for precision." %}</p>
+            </div>
+            
+            <div class="p-8 rounded-3xl bg-gray-50 border border-gray-100 hover:shadow-xl transition-all duration-300 group">
+                <div class="w-14 h-14 bg-white rounded-2xl shadow-sm flex items-center justify-center text-gold-600 mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fas fa-user-md text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3" data-i18n="Expert Specialists">{% t "Expert Specialists" %}</h3>
+                <p class="text-gray-600 leading-relaxed" data-i18n="Our doctors are internationally trained and highly experienced.">{% t "Our doctors are internationally trained and highly experienced." %}</p>
+            </div>
+            
+            <div class="p-8 rounded-3xl bg-gray-50 border border-gray-100 hover:shadow-xl transition-all duration-300 group">
+                <div class="w-14 h-14 bg-white rounded-2xl shadow-sm flex items-center justify-center text-gold-600 mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fas fa-heart text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3" data-i18n="Patient Comfort">{% t "Patient Comfort" %}</h3>
+                <p class="text-gray-600 leading-relaxed" data-i18n="We prioritize a pain-free and comfortable experience.">{% t "We prioritize a pain-free and comfortable experience." %}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

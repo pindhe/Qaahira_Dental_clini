@@ -1,0 +1,106 @@
+{% extends 'admin/base.html' %}
+{% load translate_tags %}
+
+{% block page_title %}<span data-i18n="Customers">{% t "Customers" %}</span>{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <!-- Header -->
+    <div class="flex justify-between items-center">
+        <h1 class="text-2xl font-bold text-gray-900" data-i18n="All Customers">{% t "All Customers" %}</h1>
+    </div>
+
+    <!-- Search -->
+    <div class="bg-white rounded-lg shadow p-6">
+        <form method="get" class="flex gap-4">
+            <input type="text" name="search" value="{{ search_query }}" placeholder="{% t 'Search by name, email, or phone...' %}" data-i18n="Search by name, email, or phone..." class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent">
+            <button type="submit" class="bg-gold-600 text-white px-6 py-2 rounded-lg hover:bg-gold-700 transition">
+                <i class="fas fa-search mr-2"></i><span data-i18n="Search">{% t "Search" %}</span>
+            </button>
+        </form>
+    </div>
+
+    <!-- Customers Table -->
+    <div class="bg-white rounded-lg shadow overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gold-600 text-white">
+                    <tr>
+                        <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider" data-i18n="Name">{% t "Name" %}</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider" data-i18n="Email">{% t "Email" %}</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider" data-i18n="Phone">{% t "Phone" %}</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider" data-i18n="Date of Birth">{% t "Date of Birth" %}</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider" data-i18n="Registered">{% t "Registered" %}</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider" data-i18n="Actions">{% t "Actions" %}</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for patient in patients %}
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm font-medium text-gray-900">{{ patient.first_name }} {{ patient.last_name }}</div>
+                            {% if patient.user %}
+                                <div class="text-sm text-gray-500">@{{ patient.user.username }}</div>
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">{{ patient.email }}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">{{ patient.phone }}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">
+                                {% if patient.date_of_birth %}
+                                    {{ patient.date_of_birth|date:"M d, Y" }}
+                                {% else %}
+                                    <span data-i18n="N/A">N/A</span>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">{{ patient.created_at|date:"M d, Y" }}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <a href="{% url 'admin_customer_detail' patient.id %}" class="text-gold-600 hover:text-gold-900">
+                                <i class="fas fa-eye mr-1"></i><span data-i18n="View Details">{% t "View Details" %}</span>
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="px-6 py-12 text-center text-gray-500">
+                            <i class="fas fa-users text-4xl mb-4 block"></i>
+                            <span data-i18n="No customers found">{% t "No customers found" %}</span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        {% if patients.has_other_pages %}
+        <div class="bg-gray-50 px-6 py-4 border-t border-gray-200">
+            <div class="flex items-center justify-between">
+                <div class="text-sm text-gray-700">
+                    <span data-i18n="Showing page">{% t "Showing page" %}</span> {{ patients.number }} <span data-i18n="of">{% t "of" %}</span> {{ patients.paginator.num_pages }}
+                </div>
+                <div class="flex space-x-2">
+                    {% if patients.has_previous %}
+                        <a href="?page=1{% if search_query %}&search={{ search_query }}{% endif %}" class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-100" data-i18n="First">{% t "First" %}</a>
+                        <a href="?page={{ patients.previous_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}" class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-100" data-i18n="Previous">{% t "Previous" %}</a>
+                    {% endif %}
+                    {% if patients.has_next %}
+                        <a href="?page={{ patients.next_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}" class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-100" data-i18n="Next">{% t "Next" %}</a>
+                        <a href="?page={{ patients.paginator.num_pages }}{% if search_query %}&search={{ search_query }}{% endif %}" class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-100" data-i18n="Last">{% t "Last" %}</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+
