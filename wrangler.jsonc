@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "qaahira-dental-clini",
+  "compatibility_date": "2026-06-04",
+  "observability": {
+    "enabled": true
+  },
+  "assets": {
+    "directory": "Qaahira"
+  },
+  "compatibility_flags": [
+    "nodejs_compat"
+  ]
+}
