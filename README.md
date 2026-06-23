@@ -1,87 +1,107 @@
-<p align="center">
-  <img src="Qaahira-image.png" width="850" alt="Qaahira Dental Clinic Preview" style="border-radius:18px; box-shadow:0 10px 35px rgba(0,0,0,0.35);" />
-</p>
+# Qaahira Dental Clinic
 
-<h1 align="center">🦷 Qaahira Dental Clinic</h1>
+A modern, premium dental clinic website built with **PHP**, **MySQL**, **Tailwind CSS**, and **JavaScript** — designed for **XAMPP**.
 
-<p align="center">
-  <strong>Modern Dental Clinic Management & Appointment Platform</strong>
-</p>
+## Features
 
-<p align="center">
-  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />
-  <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white" />
-  <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" />
-  <img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" />
-  <img src="https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" />
-</p>
+### Public Website
+- Home, About, Services, Dentists, Gallery, Blog, Testimonials, FAQ, Contact
+- Appointment booking form
+- English & Arabic (RTL) language support
+- WhatsApp floating button
+- Search functionality
+- Responsive glassmorphism design
 
-<p align="center">
-  <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" />
-  <img src="https://img.shields.io/badge/Version-1.0.0-blue?style=flat-square" />
-  <img src="https://img.shields.io/badge/Status-Active-brightgreen?style=flat-square" />
-</p>
+### Admin Dashboard
+- Secure login with session authentication
+- Analytics dashboard with Chart.js
+- Manage: Dentists, Services, Appointments, Customers, Messages, Testimonials, Blog, Gallery, FAQs
+- Homepage & About content editor
+- Website settings (contact, social media, working hours)
+- Dark/Light mode toggle
+- Notifications system
 
----
+## Requirements
 
-## 📌 About The Project
+- XAMPP (Apache + MySQL + PHP 8+)
+- phpMyAdmin
 
-**Qaahira Dental Clinic** waa website casri ah oo loogu talagalay maamulka rugta ilkaha, booking appointments, maamulka bukaanka, iyo soo bandhigida adeegyada caafimaadka ilkaha si professional ah.
+## Installation
 
-Website-kan waxa uu leeyahay:
+### 1. Start XAMPP
+Start **Apache** and **MySQL** from the XAMPP Control Panel.
 
-- ✅ Interface qurux badan oo responsive ah
-- ✅ Appointment booking system
-- ✅ Patient management
-- ✅ Dentist profiles
-- ✅ Dental services showcase
-- ✅ Modern dashboard
-- ✅ Secure backend API
+### 2. Import Database
+1. Open phpMyAdmin: `http://localhost/phpmyadmin`
+2. Click **Import**
+3. Select `database/qaahira_dental.sql` (single complete file)
+4. Click **Go**
 
-> Waxaa lagu dhisay technologies casri ah oo **degdeg**, **ammaan**, isla markaana **scalable** ah.
+This creates the `qaahira_dental` database with all tables and sample data.
 
----
+### 3. Configure (if needed)
+Edit `config/config.php` if your MySQL credentials differ:
 
-## 🚀 Tech Stack
+```php
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'qaahira_dental');
+define('DB_USER', 'root');
+define('DB_PASS', '');
+define('APP_URL', 'http://localhost/Dental');
+```
 
-### 🎨 Frontend
+### 4. Access the Website
 
-| Technology | Version | Purpose |
-|---|---|---|
-| TypeScript | ^5.0 | Type-safe development |
-| Tailwind CSS | ^3.0 | Utility-first styling |
-| Framer Motion | ^11.0 | Animations & transitions |
-| ShadCN UI | Latest | Component library |
+| URL | Description |
+|-----|-------------|
+| `http://localhost/Dental` | Public website |
+| `http://localhost/Dental/admin/login.php` | Admin login |
 
-### ⚙️ Backend
+### Admin Credentials
+- **Email:** `kharash420@gmail.com`
+- **Password:** Set during installation (see database seed)
 
-| Technology | Version | Purpose |
-|---|---|---|
-| Python | ^3.11 | Backend language |
-| FastAPI | ^0.111 | REST API framework |
-| JWT | — | Authentication |
+## Project Structure
 
----
+```
+Dental/
+├── admin/           # Admin dashboard pages
+├── assets/          # CSS & JavaScript
+├── config/          # App configuration
+├── core/            # Database, Auth, Language classes
+├── database/        # SQL schema file
+├── includes/        # Shared header/footer templates
+├── lang/            # EN & AR translations
+├── uploads/         # Uploaded images
+├── index.php        # Homepage
+├── about.php
+├── services.php
+├── dentists.php
+├── appointment.php
+├── gallery.php
+├── blog.php
+├── contact.php
+├── faq.php
+└── search.php
+```
 
+## Security
 
----
+- PDO prepared statements (SQL injection prevention)
+- `htmlspecialchars()` output escaping (XSS prevention)
+- CSRF tokens on all forms
+- Session-based admin authentication
+- `password_hash()` for admin passwords
+- Protected config/core directories via `.htaccess`
 
-## 🦷 Dental Services
+## Tech Stack
 
-| Service | Description |
-|---|---|
-| 🪥 Teeth Cleaning | Professional cleaning & hygiene |
-| ✨ Teeth Whitening | Advanced whitening treatments |
-| 🔩 Dental Implants | Permanent tooth replacement |
-| 🦾 Orthodontics | Braces & alignment solutions |
-| 🏥 Root Canal | Pain-free root canal therapy |
-| 💎 Cosmetic Dentistry | Smile makeover treatments |
+- **PHP 8+** — Backend logic
+- **MySQL** — Database
+- **Tailwind CSS** (CDN) — Styling
+- **Chart.js** — Admin analytics charts
+- **JavaScript** — Interactivity, dark mode, animations
 
----
+## License
 
-
-## 📬 Contact
-
-**Qaahira Dental Clinic** — Modern Dental Management Platform
-
-<p align="center">Made with ❤️ for better dental care</p>
+Built for Qaahira Dental Clinic.

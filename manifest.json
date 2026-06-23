@@ -1,0 +1,31 @@
+{
+  "name": "Qaahira Dental Clinic",
+  "short_name": "Qaahira",
+  "description": "Premium dental care — book appointments online",
+  "start_url": "/Dental/",
+  "display": "standalone",
+  "background_color": "#8B1E2D",
+  "theme_color": "#E67E22",
+  "orientation": "portrait-primary",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "/Dental/assets/images/tablogo.jpeg",
+      "sizes": "48x48",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "/Dental/assets/images/tablogo.jpeg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "/Dental/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}
