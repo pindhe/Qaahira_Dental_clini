@@ -1,0 +1,12 @@
+{
+    "rewrites": [
+      {
+        "source": "/api/:path*",
+        "destination": "https://YOUR-RENDER-URL.onrender.com/api/:path*"
+      },
+      {
+        "source": "/uploads/:path*",
+        "destination": "https://YOUR-RENDER-URL.onrender.com/uploads/:path*"
+      }
+    ]
+  }
